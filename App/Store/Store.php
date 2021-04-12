@@ -11,6 +11,7 @@ class Store
 {
     public function getProducts()
     {
+        // here need some health checks
         return DB::getInstance()
             ->query("SELECT * FROM products")
             ->fetch_all(MYSQLI_ASSOC);
@@ -18,6 +19,7 @@ class Store
 
     public function getApprovedComments()
     {
+        // here need some health checks
         return DB::getInstance()
             ->query("SELECT * FROM comments WHERE approved_at IS NOT NULL")
             ->fetch_all(MYSQLI_ASSOC);
@@ -25,6 +27,7 @@ class Store
 
     public function getUnapprovedComments()
     {
+        // here need some health checks
         return DB::getInstance()
             ->query("SELECT * FROM comments WHERE approved_at IS NULL")
             ->fetch_all(MYSQLI_ASSOC);
@@ -35,6 +38,8 @@ class Store
         $nowTime  = date("Y-m-d H:i:s", time());
         $updStmnt = "UPDATE comments SET approved_at='$nowTime' WHERE id=$commentID";
 
+        //prepare stmnt should be used (ex.: to sanitize the input)
+        // here need some health checks
         DB::getInstance()->query($updStmnt);
     }
 
@@ -42,7 +47,9 @@ class Store
     {
         extract($commentData);
         $insStmnt = "INSERT INTO comments(user_name, user_email, comment) VALUES('$user_name', '$user_email', '$comment')";
-
+        
+        //prepare stmnt should be used (ex.: to sanitize the input)
+        // here need some health checks
         DB::getInstance()->query($insStmnt);
     }
 }
