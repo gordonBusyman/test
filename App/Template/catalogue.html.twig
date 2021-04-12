@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="res/style.css">
+    <link rel="icon" type="image/png" href="res/favicon.ico" />
+    <meta charset="utf-8">
+    <title>Test task</title>
+</head>
+
+<body>
+
+    <!-- NAVIAGATION -->
+    <div class="navigation">
+        <a href="/catalogue">Catalogue</a>
+        <a href="/admin">Admin Panel</a>
+    </div>
+
+    <!-- CATALOGUE -->
+    <h2>Products</h2>
+    <table style="width:100%">
+        {% for i in 0..2 %}
+            <tr>
+                {% for k in 0..2 %}
+                    <td>
+                        <div class="product">
+                            <div class="name">{{ products[3*i+k].name }}</div>
+                            <div class="image">
+                                {# CDN image :) #}
+                                <img src="img/{{ products[3*i+k].photo }}.jpeg" alt="{{ products[3*i+k].name }}  width="100" height="100"">
+                            </div>
+                            <div class="description">{{ products[3*i+k].description }}</div>
+                        </div>
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+
+    <!-- COMMENTS -->
+    <h2>Comments</h2>
+    {% for comment in comments %}
+        <div class="comments_comment">
+            "{{ comment.comment }}"
+        </div>
+    {% endfor %}
+
+    <form method="post" action="/submit_comment">
+
+        <fieldset>
+            <legend>Currency to be used:</legend>
+                <div id="form_email">
+                    <label for="name">Name:</label>
+                    <input type="text" id="form_name_input" name="name" placeholder="John Doe">
+                </div>
+
+                <div id="form_name">
+                    <label for="email">Email:</label>
+                    <input type="text" id="form_email_input" name="email" 
+                        placeholder="example@email.com"
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+                </div>
+                <div id="form_comment">
+                    <label for="comment">Comment:</label>
+                    <input type="text" id="form_comment_input" name="comment">
+                </div>
+        </fieldset>
+        <input id="submit" type="submit" value="Submit" >
+
+    </form>
+
+
+</body>
+
+</html>
